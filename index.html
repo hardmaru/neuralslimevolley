@@ -1,0 +1,139 @@
+<html>
+<head>
+  <title>neural slime volleyball</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="ōtoro.net">
+    <meta name="author" content="hardmaru">
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- extra styles -->
+    <style>
+    a {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 2.0em;
+        font-weight: 150;
+        font-style: inherit;
+        color: orange;
+    }
+
+    head {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-weight: 100;
+      display: none;
+    }
+    p {
+      padding: 10px;
+      font-family: Courier, "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-weight: 100;
+      font-size: 2.0em;
+    }
+    textarea {
+      padding: 5;
+      font-family: Courier, "Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-weight: 100;
+      font-size: 0.5em;
+    }
+    #nn_weights { white-space: pre; }
+    </style>
+
+
+</head>
+<body>
+
+<a href="http://blog.otoro.net/2015/03/28/neural-slime-volleyball/" id="initTitle" target="_blank">neural slime volleyball</a>
+<a href="http://otoro.net/" id="finalTitle" target="_blank">&copy; <ruby>ōtoro</ruby>.net</a>
+<p id="theHand"><span class="glyphicon glyphicon-hand-up"></span></p>
+<!--
+    <p id="nn_weights"></p>
+-->
+    <div id="p5Container">
+    </div>
+
+
+
+
+
+  <!-- jQuery -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="http://cdn.jsdelivr.net/mobile-detect.js/0.4.1/mobile-detect.min.js"></script>
+  <script src="./lib/convnetjs/convnet.js"></script>
+  <script src="./lib/convnetjs/ga.js"></script>
+
+<script>
+
+$("#initTitle").hide();
+$("#theHand").hide();
+$("#initTitle").css({ 
+    "position": "absolute",
+    "top": 8 + "px",
+    "left": 24 + "px",
+    });
+
+
+$("#finalTitle").hide();
+$("#finalTitle").css({ 
+    "position": "absolute",
+    "top": 8 + "px",
+    "right": 24 + "px",
+    "font-size": 1.5 +"em"
+    });
+
+setTimeout(function(){
+  $("body").fadeIn(500);
+  $("#theHand").fadeIn(500);
+  $("#initTitle").fadeIn(500);
+},0);
+
+/*
+setTimeout(function(){
+  $("#theHand").fadeIn(1000);
+},2000);
+*/
+setTimeout(function(){
+    $("#initTitle").fadeOut(500);
+    $("#finalTitle").fadeIn(500);
+},10000);
+
+setTimeout(function(){
+    $("#theHand").fadeOut(1000);
+},4000);
+
+/*
+setTimeout(function(){
+    $("#mainNavBar").fadeOut(1000);
+},4000);
+*/
+
+</script>
+
+<script language="javascript" type="text/javascript" src="./lib/p5.js"></script>
+<script language="javascript" type="text/javascript" src="./lib/p5.dom.js"></script>
+<script language="javascript" type="text/javascript" src="useful.js"></script>
+<script language="javascript" type="text/javascript" src="slimevolley.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61361005-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
