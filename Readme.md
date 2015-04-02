@@ -6,7 +6,7 @@ HTML5-JS Slime Volleyball clone.  AI agent is a trained recurrent neural network
 See my blog post at [blog.otoro.net](http://blog.otoro.net/2015/03/28/neural-slime-volleyball/) for more information, or [otoro.net](http://otoro.net/slimevolley/) to actually play the game.
 
 ## online demo
-- [Balancing inverted double pendulum](http://otoro.net/slimevolley)
+- [Neural Slime Volleyball](http://otoro.net/slimevolley)
 
 ## License
 GNU GPL v3
