@@ -55,16 +55,18 @@
 <a href="http://blog.otoro.net/2015/03/28/neural-slime-volleyball/" id="initTitle" target="_blank">neural slime volleyball</a>
 <a href="http://blog.otoro.net/2015/03/28/neural-slime-volleyball/" id="finalTitle" target="_blank">&copy; <ruby>ōtoro</ruby>.net</a>
 <p id="theHand"><span class="glyphicon glyphicon-hand-up"></span></p>
-<!--
-    <p id="nn_weights"></p>
--->
+
+
+
     <div id="p5Container">
     </div>
 
-
+<script>
+  var trainingVersion = true;
+</script>
 
   <img src="img/neural_slime_volleyball.png" class="img-responsive" alt="" id="pageImage">
-
+  <p id="nn_gene"></p>
   <!-- jQuery -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
   <!-- Bootstrap Core JavaScript -->
@@ -74,7 +76,9 @@
   <script src="./lib/convnetjs/ga.js"></script>
 
 <script>
-
+if (!trainingVersion) {
+  $("#nn_gene").hide();
+}
 $("#pageImage").hide();
 
 $("#initTitle").hide();
@@ -125,7 +129,7 @@ setTimeout(function(){
 <script language="javascript" type="text/javascript" src="./lib/p5.js"></script>
 <script language="javascript" type="text/javascript" src="./lib/p5.dom.js"></script>
 <script language="javascript" type="text/javascript" src="useful.js"></script>
-<script language="javascript" type="text/javascript" src="slimevolley.js"></script>
+<script language="javascript" type="text/javascript" src="slimevolley_pro.js"></script>
 
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

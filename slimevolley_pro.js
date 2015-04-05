@@ -30,15 +30,15 @@ for the JavaScript code in this page.
 
 // game settings:
 var showArrowKeys = true;
-var ref_w = 24;
+var ref_w = 24*2;
 var ref_h = ref_w;
 var ref_u = 1.5; // ground height
 var ref_wallwidth = 1.0; // wall width
 var ref_wallheight = 3.5;
 var factor = 1;
-var playerSpeedX = 10;
-var playerSpeedY = 10;
-var maxBallSpeed = 15;
+var playerSpeedX = 10*1.75;
+var playerSpeedY = 10*1.35;
+var maxBallSpeed = 15*1.5;
 var gravity;
 var timeStep = 1/30;
 var theFrameRate = 60*1;
@@ -47,7 +47,7 @@ var friction = 1.0; // 1 means no friction, less means friction
 var windDrag = 1.0;
 var initDelayFrames = 30*2*1;
 var trainingFrames = 30*20; // assume each match is 7 seconds. (vs 30fps)
-var theGravity = -9.8*2;
+var theGravity = -9.8*2*1.5;
 var trainingMode = false;
 var human1 = false; // if this is true, then player 1 is controlled by keyboard
 var human2 = false; // same as above
@@ -55,13 +55,11 @@ var humanHasControlled = false;
 var trainer = null;
 var generationCounter = 0;
 var baseScoreFontSize = 64;
-var traningVersion = false;
+//var trainingVersion = false; // this variable is stored on html file pro.html
 
-var initGeneJSON1 = '{"fitness":1.5,"nTrial":0,"gene":{"0":5.8365,"1":1.4432,"2":3.1023,"3":0.2617,"4":-3.5896,"5":-1.0675,"6":-5.3384,"7":0.8505,"8":-3.1851,"9":-5.6325,"10":-3.2459,"11":0.7676,"12":1.321,"13":-1.4931,"14":-1.1353,"15":-0.2911,"16":1.164,"17":0.8755,"18":-1.1329,"19":0.3585,"20":-3.9182,"21":0.325,"22":-0.3397,"23":-0.2513,"24":0.5678,"25":1.9984,"26":0.7691,"27":2.6176,"28":1.791,"29":-0.9755,"30":1.8437,"31":0.4196,"32":0.5471,"33":-2.6769,"34":1.6382,"35":1.1442,"36":7.1792,"37":2.4046,"38":0.5512,"39":2.8792,"40":0.6744,"41":3.8023,"42":-2.704,"43":2.872,"44":-3.7659,"45":-1.7561,"46":-1.5691,"47":-5.0168,"48":-3.1482,"49":0.4531,"50":6.3125,"51":0.2956,"52":2.5486,"53":-0.3944,"54":-2.7155,"55":-5.5154,"56":-1.1787,"57":-3.8094,"58":-2.0738,"59":-4.0264,"60":3.3217,"61":11.0153,"62":2.8341,"63":-0.2914,"64":4.8417,"65":-0.9244,"66":-3.2621,"67":-0.2639,"68":-1.3825,"69":-1.1969,"70":0.7021,"71":-4.1637,"72":-1.5203,"73":-3.1297,"74":-1.7193,"75":-2.1526,"76":4.2902,"77":1.4272,"78":-0.6137,"79":1.1164,"80":-0.0067,"81":1.0377,"82":-0.2344,"83":-0.3008,"84":-2.3273,"85":2.4405,"86":-2.3012,"87":-1.9193,"88":-3.7453,"89":1.44,"90":-4.5812,"91":-1.9701,"92":2.3101,"93":-4.2018,"94":-3.0907,"95":1.7332,"96":-3.311,"97":-2.2417,"98":-1.9073,"99":5.5644,"100":2.5601,"101":3.2058,"102":0.7374,"103":-3.6406,"104":-0.6569,"105":2.5963,"106":3.074,"107":-4.7564,"108":1.0644,"109":-0.7439,"110":-0.2318,"111":1.1902,"112":-2.2391,"113":1.5935,"114":-4.6269,"115":-2.0589,"116":-2.2949,"117":-0.4391,"118":7.0848,"119":4.902,"120":-0.929,"121":3.1709,"122":0.163,"123":-1.6548,"124":-0.0521,"125":0.3726,"126":-1.3681,"127":-0.2623,"128":-1.4581,"129":0.3422,"130":1.1412,"131":-0.2376,"132":0.7743,"133":3.0866,"134":-3.6638,"135":-0.9372,"136":2.5364,"137":-1.3026,"138":-1.7666,"139":-0.1401}}';
+var initGeneJSON = '{"fitness":1.3846153846153846,"nTrial":0,"gene":{"0":7.5555,"1":4.5121,"2":2.357,"3":0.139,"4":-8.3413,"5":-2.36,"6":-3.3343,"7":0.0262,"8":-7.4142,"9":-8.0999,"10":2.1553,"11":2.4759,"12":1.5587,"13":-0.7062,"14":0.2747,"15":0.1406,"16":0.8988,"17":0.4121,"18":-2.082,"19":1.4061,"20":-12.1837,"21":1.2683,"22":-0.3427,"23":-6.1471,"24":5.064,"25":1.2345,"26":0.3956,"27":-2.5808,"28":0.665,"29":-0.0652,"30":0.1629,"31":-2.3924,"32":-3.9673,"33":-6.1155,"34":5.97,"35":2.9588,"36":6.6727,"37":-2.2779,"38":2.0302,"39":13.094,"40":2.7659,"41":-1.3683,"42":2.5079,"43":-2.6932,"44":-2.0672,"45":-4.2688,"46":-4.9919,"47":-1.1571,"48":-2.0693,"49":2.9565,"50":9.6875,"51":-0.7638,"52":-1.5896,"53":2.4563,"54":-2.5956,"55":-9.8478,"56":-4.9463,"57":-3.4502,"58":-3.0604,"59":-1.158,"60":6.3533,"61":16.0047,"62":1.4911,"63":7.9886,"64":2.3879,"65":-4.5006,"66":-1.8171,"67":0.9859,"68":-2.414,"69":-1.5698,"70":2.5173,"71":-8.6187,"72":-0.3068,"73":-3.6185,"74":-5.202,"75":-0.05,"76":7.2617,"77":-3.1099,"78":0.9881,"79":-0.5022,"80":1.6499,"81":2.1346,"82":2.8479,"83":2.1166,"84":-6.177,"85":0.2584,"86":-3.7623,"87":-4.8107,"88":-9.1331,"89":-2.9681,"90":-7.1177,"91":-1.4894,"92":-1.1885,"93":-4.1906,"94":-5.821,"95":-4.3202,"96":-1.4603,"97":2.3514,"98":-4.8101,"99":3.6935,"100":1.388,"101":3.2504,"102":6.6364,"103":-3.7216,"104":1.6191,"105":6.4388,"106":0.4765,"107":-4.4931,"108":-1.1007,"109":-4.3594,"110":-2.9777,"111":-0.3744,"112":3.5822,"113":3.9402,"114":-9.2382,"115":-4.3392,"116":0.2103,"117":-1.3699,"118":9.2494,"119":10.8483,"120":0.2389,"121":2.6535,"122":-8.2731,"123":-3.5133,"124":-5.0808,"125":3.0846,"126":-0.4851,"127":0.3938,"128":0.2459,"129":-0.3466,"130":-0.1684,"131":-0.7868,"132":-0.6009,"133":2.5491,"134":-3.2234,"135":-3.3352,"136":4.7229,"137":-4.1547,"138":3.6065,"139":-0.1261}}';
 
-var initGeneJSON2 = '{"fitness":1.2,"nTrial":0,"gene":{"0":6.5097,"1":2.3385,"2":0.1029,"3":0.5598,"4":-6.3998,"5":-1.2678,"6":-4.4426,"7":0.8709,"8":-4.4122,"9":-7.7086,"10":0.769,"11":2.1251,"12":0.8503,"13":-0.8715,"14":-0.9924,"15":0.0656,"16":1.0124,"17":0.1899,"18":-2.8846,"19":0.3021,"20":-6.7481,"21":0.3985,"22":-4.174,"23":1.1515,"24":-1.4622,"25":-0.5959,"26":0.5139,"27":2.9706,"28":2.043,"29":0.189,"30":1.3854,"31":-4.0551,"32":-2.7276,"33":-5.0728,"34":4.6398,"35":4.0611,"36":9.7766,"37":0.7044,"38":0.8835,"39":4.2447,"40":0.4375,"41":1.0766,"42":-1.8893,"43":-0.6249,"44":-3.2812,"45":-0.7335,"46":-3.1081,"47":-4.3488,"48":-2.7436,"49":0.7618,"50":8.131,"51":-0.967,"52":3.6646,"53":2.5841,"54":-2.7902,"55":-6.0235,"56":-3.595,"57":-1.7922,"58":-3.8774,"59":-2.701,"60":3.674,"61":13.4126,"62":3.4967,"63":-0.7306,"64":2.8581,"65":-1.6179,"66":-5.6636,"67":-0.8102,"68":-2.6126,"69":-1.5072,"70":1.3759,"71":-4.8595,"72":0.3855,"73":-3.3951,"74":-3.4629,"75":1.0211,"76":3.0887,"77":-1.372,"78":0.7817,"79":-1.4717,"80":1.3833,"81":1.4233,"82":-1.5142,"83":-1.7674,"84":-2.4652,"85":1.913,"86":-2.3676,"87":-1.0603,"88":-6.4953,"89":0.4749,"90":-5.6628,"91":-1.6198,"92":-0.4882,"93":-4.4501,"94":-5.0181,"95":1.9535,"96":-3.4906,"97":0.1522,"98":-0.4891,"99":6.3273,"100":2.2241,"101":2.1854,"102":6.0501,"103":-0.2328,"104":-0.542,"105":4.1188,"106":2.343,"107":-4.705,"108":1.4819,"109":-2.1852,"110":-0.2348,"111":-0.6274,"112":0.7755,"113":3.2003,"114":-6.7855,"115":-3.9196,"116":-3.1513,"117":-1.4553,"118":6.7805,"119":5.0117,"120":-0.4204,"121":2.3323,"122":-2.7064,"123":-1.9625,"124":-3.5944,"125":2.7761,"126":-1.4873,"127":-0.477,"128":-1.4658,"129":0.2057,"130":0.4323,"131":-0.8676,"132":-0.9874,"133":2.4903,"134":-3.1455,"135":-2.6227,"136":5.2044,"137":-0.6598,"138":1.6745,"139":1.5329}}';
-
-var initGeneRaw = JSON.parse(initGeneJSON2);
+var initGeneRaw = JSON.parse(initGeneJSON);
 
 var initGene = convnetjs.zeros(Object.keys(initGeneRaw.gene).length); // Float64 faster.
 for (var i = 0; i < initGene.length; i++) {
@@ -319,7 +317,7 @@ Brain.prototype.setCurrentInputState = function (agent, opponent) {
   this.inputState[10] = 0*opponent.state.vx/scaleFactor;
   this.inputState[11] = 0*opponent.state.vy/scaleFactor;
   for (i = 0; i < this.nOutput; i++) { // feeds back output to input
-    this.inputState[i+this.nGameInput] = this.outputState[i]*scaleFeedback;
+    this.inputState[i+this.nGameInput] = this.outputState[i]*scaleFeedback*1; 
   }
 
   for (i = 0; i < this.nInput; i++) { // copies input state into convnet cube object format to be used later.
@@ -360,8 +358,8 @@ function Trainer(brain, initialGene) {
   this.net.makeLayers(brain.layer_defs);
 
   this.trainer = new convnetjs.GATrainer(this.net, {
-      population_size: 50*1,
-      mutation_size: 0.1,
+      population_size: 100*1,
+      mutation_size: 0.3,
       mutation_rate: 0.05,
       num_match: 4*2,
       elite_percentage: 0.20
@@ -581,7 +579,7 @@ Agent.prototype.display = function() {
   var ballY = game.ball.loc.y-(y+(0.6)*r*fastSin(angle));
   if (this.emotion === "sad") {
     ballX = -this.dir;
-    ballY = -2;
+    ballY = -3;
   }
   var dist = Math.sqrt(ballX*ballX+ballY*ballY);
   eyeX = ballX/dist;
@@ -634,7 +632,7 @@ Wall.prototype.display = function() {
 
 function initGame() {
   game.ball = new Particle(createVector(0, ref_w/4));
-  game.ball.r = 0.25;
+  game.ball.r = 0.5;
 
   game.agent1 = game.agent1 || new Agent(-1, createVector(-ref_w/4, 1.5), color(240, 75, 0, 255));
   game.agent2 = game.agent2 || new Agent(1, createVector(ref_w/4, 1.5), color(0, 150, 255, 255));
@@ -712,8 +710,10 @@ function update(nStep) {
 
     // get human keyboard control
     if (!trainingMode) {
-      keyboardControl(); // may want to disable this for speed.
-      touchControl(); // mobile device
+      if (!trainingVersion) {
+        keyboardControl(); // may want to disable this for speed.
+        touchControl(); // mobile device
+      }
       betweenGameControl();
     }
 
@@ -744,7 +744,7 @@ function update(nStep) {
       // make graphics for dead ball
       if (!trainingMode) {
         game.deadball = new Particle(game.ball.loc.copy());
-        game.deadball.r = 0.25;
+        game.deadball.r = 0.5;
         game.deadball.life = initDelayFrames;
       }
       initGame();
@@ -779,13 +779,13 @@ function drawScenery() {
   }
   fill(255, 240, 0, 64);
   noStroke();
-  ellipse(toX(-ref_w/4), 1*height/2, 2*factor, 2*factor);
+  ellipse(toX(-ref_w/4), 1*height/2, 2*factor*2, 2*factor*2);
   fill(50, 255, 50, 16);
-  ellipse(toX(ref_w/8), toY(-1.5), 12*factor, 20*factor);
+  ellipse(toX(ref_w/8), toY(-1.5), 12*factor*2, 20*factor*2);
   fill(50, 255, 50, 16);
-  ellipse(toX(-ref_w/8), toY(-1.5), 8*factor, 12*factor);
+  ellipse(toX(-ref_w/8), toY(-1.5), 8*factor*2, 12*factor*2);
   fill(50, 255, 50, 16);
-  ellipse(toX(ref_w/3), toY(-1.5), 6*factor, 24*factor);
+  ellipse(toX(ref_w/3), toY(-1.5), 6*factor*2, 24*factor*2);
 }
 
 function keyboardControl() {
@@ -983,7 +983,7 @@ function draw() {
 
   result = update(1);
 
-  if (result !== 0 && traningVersion) { // someone has lost
+  if (result !== 0 && trainingVersion) { // someone has lost
     var genStep = 50;
     console.log('training generation #'+(generationCounter+genStep));
     for (var i = 0; i < genStep; i++) {
@@ -997,8 +997,11 @@ function draw() {
     for (i = N-4; i < N; i++) {
       console.log('#'+i+':'+Math.round(100*trainer.getChromosome(i).fitness)/100);
     }
-    if (traningVersion) {
+    if (trainingVersion) {
       $("#nn_gene").text(JSON.stringify(trainer.getChromosome()));
+      console.log('--- start trained gene ---');
+      console.log(JSON.stringify(trainer.getChromosome()));
+      console.log('--- end of trained gene---');
     }
     generationCounter += genStep;
     initGame();
@@ -1029,8 +1032,10 @@ function draw() {
   game.fenceStub.display();
 
   // prints agent states (used for nn input)
-  //game.agent1.printState();
-  //game.agent2.printState();
+  if (trainingVersion) {
+    game.agent1.printState();
+    game.agent2.printState();
+  }
 
   game.agent1.drawState(human1);
   game.agent2.drawState(human2);
